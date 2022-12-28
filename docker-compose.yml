@@ -1,0 +1,27 @@
+version: '3'
+services:
+  db:
+    image: postgres:12.4-alpine
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: rails
+      POSTGRES_PASSWORD: rails
+      POSTGRES_DB: rails
+  redis:
+    image: redis:6.0-alpine
+    volumes:
+      - redis_data:/data
+  web:
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - redis
+volumes:
+  db_data:
+  redis_data:

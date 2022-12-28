@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: db
+  username: rails
+  password: rails
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: rails_development
+
+test:
+  <<: *default
+  database: rails_test
+
+production:
+  <<: *default
+  database: rails_production
